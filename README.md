@@ -9,10 +9,13 @@ found.
 2 Work to do
 
 You must program different algorithms for the TSP problem, including:
+
 The brute-force approach exploring all the possible solutions in a systematic way.
 
 A branch-and-bound version.
+
 The version adding and removing edges as seen in the exercise sheet.
+
 The approximation based on the minimum spanning tree as seen in the exercise sheet.
 
 A version considering at each step the nearest unvisited choice (called the greedy approach).
