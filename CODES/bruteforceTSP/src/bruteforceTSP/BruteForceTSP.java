@@ -1,53 +1,53 @@
 package bruteforceTSP;
 
 import java.util.List;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BruteForceTSP {
  public static void main(String[] args) {
-  String cities = "abc";
+  String cities = "abcd";
   int Nb_cities = cities.length();
+  List<String> myparts;
+  int k = 1;
+  int optimalPath_index =0;
+  String RealPath =""; // path converted from labels to real names
 
-  List < String > results = new ArrayList < String > (); // table des permutations (n! permuts)
+  List < String > results = new ArrayList < String > (); // table des permutations (n! permutation in total)
+  ArrayList < Edge > edges = new ArrayList < > ();
+  ArrayList < City > citiesArray = new ArrayList < > ();
+  ArrayList<Double> RecordCosts = new ArrayList<Double> ();
+
+
   BruteForceTSP permutation = new BruteForceTSP();
   double cost = 0.0; // at each permutation
-  double minimal_cost=0.0	;
-  ArrayList RecordCosts = new ArrayList<>();
+  double minimal_cost=99999;
   City a = new City("Lyon", 'a');
   City b = new City("Paris", 'b');
   City c = new City("marseille", 'c');
-  // City d = new City("casa",'d');
+  City d = new City("casa",'d');
 
   // all possible  routes (edges)
   Edge e1 = new Edge(a, b, 2);
   Edge e2 = new Edge(a, c, 3);
-  //  Edge e3  = new Edge(a,d,5);
+  Edge e3  = new Edge(a,d,5);
   Edge e4 = new Edge(b, a, 9);
   Edge e5 = new Edge(b, c, 4);
-  //  Edge e6  = new Edge(b,d,6);
+  Edge e6  = new Edge(b,d,6);
   Edge e7 = new Edge(c, a, 2);
   Edge e8 = new Edge(c, b, 1);
-  // Edge e9  = new Edge(c,d,3);
-  // Edge e10 = new Edge(d,a,2);
-  // Edge e11 = new Edge(d,b,4);
-  // Edge e12 = new Edge(d,c,8);
-
-
-
-  ArrayList < Edge > edges = new ArrayList < > ();
-  //ArrayList ListOfPaths = new ArrayList<>();
-  List < Double > distances = new ArrayList < Double > ();
-
+  Edge e9  = new Edge(c,d,3);
+  Edge e10 = new Edge(d,a,2);
+  Edge e11 = new Edge(d,b,4);
+  Edge e12 = new Edge(d,c,8);
+  edges.addAll(Arrays.asList(e1, e2,e3, e4, e5,e6, e7, e8,e9,e10,e11,e12)); //ajouter les edges au tableu des edges
+  citiesArray.addAll(Arrays.asList(a,b,c,d));
   permutation.permute(cities, 0, Nb_cities - 1, results);
 
-  //  System.out.println(ListOfPaths.get(0));
-  //  System.out.println(ListOfPaths.get(0).toString().charAt(strLength));
   System.out.println("possible paths: " + results);
-  edges.addAll(Arrays.asList(e1, e2, e4, e5, e7, e8)); //ajouter les edges a une arralyist
-  List myparts = DevidePath(results);
-  int k = 1;
+  
+   myparts = DevidePath(results);
+  
   for (int i = 0; i < myparts.size(); i++) {
    for (int j = 0; j < edges.size(); j++) {
 
@@ -56,49 +56,44 @@ public class BruteForceTSP {
      //System.out.println("edge : "+myparts.get(i)+", weight ->"+edges.get(j).getWeight());
 
     }
-
-
    }
+   
    if (iterate(i, k, Nb_cities, results.size()) == 1) {
 	   RecordCosts.add(cost);
-       cost = 0.0;
+       cost = 0.0; // after computing the cost of each path, turn cost to 0
    }
    
 
   }
+  System.out.println("costs for each path :"+ RecordCosts);
   // printing the minimal cost
   for (int i = 0; i < RecordCosts.size()-1; i++) {
-	  if ((Double)RecordCosts.get(i) < (Double)RecordCosts.get(i+1)) {
-     minimal_cost = (Double)RecordCosts.get(i);
-	  }
+		  if ((Double)RecordCosts.get(i) < minimal_cost ) {
+			  optimalPath_index = i ;
+			  minimal_cost = (Double)RecordCosts.get(i);
+		  }
+	
 }
-  System.out.println("the minimal cost to reach your destination is : "+ minimal_cost);
- 
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  // deviding parts manually
-  /*System.out.println(results.get(0).charAt(0)+""+results.get(0).charAt(1));
-  System.out.println(results.get(0).charAt(1)+""+results.get(0).charAt(2));
-  System.out.println(results.get(0).charAt(2)+""+results.get(0).charAt(3));*/
-  
-  //deviding parts with function
-  //System.out.println("possible paths devided to 2: " + DevidePath(results));
-
-
-  //System.out.println(distances);
+	  for (int i = 0; i < results.get(optimalPath_index).length(); i++) {
+		  for (int j = 0; j < citiesArray.size(); j++) {
+			if (results.get(optimalPath_index).charAt(i) == citiesArray.get(j).getLabel()) {
+				RealPath+= " "+citiesArray.get(j).getName();
+			}
+		 }
+		  
+	   }
+	  System.out.println("the minimal cost to reach your destination is : "+ minimal_cost);
+	  System.out.println("the optimal path is : "+ RealPath);
+	 
  }
 
- //iterate 
+ /*  iterate function used to
+  *  iterate on the values of i
+  *  we record and re-initialise the cost the cost 
+  *  whenever i is in an index multiplying nb_cities ( number of cities )
+  */
  public static int iterate(int i, int k, int Nb_cities, int results_size) {
-
   int OnOff;
   if (i > 1 && i + 1 == (Nb_cities) * k) {
    OnOff = 1;
@@ -116,7 +111,11 @@ public class BruteForceTSP {
  }
 
 
- // function to devide paths
+ /* function to devide paths 
+  * for example : the result of applying the function 
+  * to a path as 'abdca' would be: [ab,bd,dc,ca]
+  */
+ 
  public static List < String > DevidePath(List < String > results) {
   List < String > saveParts = new ArrayList < String > ();
   for (String string: results) {
@@ -128,11 +127,11 @@ public class BruteForceTSP {
   return saveParts;
  }
 
- /** 
-  * permutation function 
-  * @param cities string to calculate permutation for 
-  * @param l starting index 
-  * @param r end index 
+ /* 
+  * permutation function: gives all possible permutation for a given string
+  * cities string to calculate permutation for 
+  * l starting index 
+  * r end index 
   */
  private int permute(String cities, int l, int r, List < String > results) {
 
@@ -151,12 +150,12 @@ public class BruteForceTSP {
   return 0;
  }
 
- /** 
-  * Swap Characters at position 
-  * @param a string value 
-  * @param i position 1 
-  * @param j position 2 
-  * @return swapped string 
+ /* 
+  * Swap Characters at position : swap positions
+  *  a string value 
+  *  i position 1 
+  *  j position 2 
+  * return swapped string 
   */
  public String swap(String a, int i, int j) {
   char temp;

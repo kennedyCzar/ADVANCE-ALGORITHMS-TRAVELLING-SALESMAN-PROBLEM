@@ -1,6 +1,5 @@
 package bruteforceTSP;
 
-import java.util.ArrayList;
 
 public class Edge {
 	 private City a, b;
@@ -11,20 +10,15 @@ public class Edge {
 		this.b = b;
 		this.weight= weight;
 	}
-   
-    
-    
  
 	public City getA() {
 		return a;
 	}
 
 
-
 	public double getWeight() {
 		return weight;
 	}
-
 
 
 	public void setWeight(double weight) {
@@ -36,10 +30,6 @@ public class Edge {
 	public City getB() {
 		return b;
 	}
-
-    
-
-    
     
 }
 

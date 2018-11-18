@@ -22,16 +22,6 @@ public class City {
 	public void setLabel(char label) {
 		this.label = label;
 	}
-	
-	/*
-	public void setWeight_from_to(City city,double weight) {
-		city.weight = city.weight-this.weight;
-	};
-	
-	
-	public double getWeight_from_to(City city) { // return weight between From_city and To_city
-		return city.weight - this.weight ;
-	};*/
 }
 
 
