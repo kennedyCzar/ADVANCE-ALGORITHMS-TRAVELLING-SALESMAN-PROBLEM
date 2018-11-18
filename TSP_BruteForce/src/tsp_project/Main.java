@@ -60,12 +60,12 @@ public class Main {
 		/* Computing the candidate paths */
 		Path path = new Path();
 		path.cityPermutation(path.convertPathToString(Constants.cities));
-		path.convertStringToPath(Path.candidate_paths);
+		path.convertStringToPath(Constants.candidate_paths);
 		
 		System.out.println("The candidate paths are :");
 		for (int i=0; i < Path.numberOfPossiblePaths(); i++) {
 			for (int j=0; j < Constants.number_of_cities + 1; j++) {
-				System.out.print(Path.paths[i][j].getName());
+				System.out.print(Constants.paths[i][j].getName());
 			}
 			System.out.println();
 		}
@@ -73,6 +73,6 @@ public class Main {
 		
 		/* Applying Brute-Force algorithm */
 		BruteForce brute_force = new BruteForce();
-		brute_force.bruteForce(Path.paths);
+		brute_force.bruteForce(Constants.paths);
 	}
 }

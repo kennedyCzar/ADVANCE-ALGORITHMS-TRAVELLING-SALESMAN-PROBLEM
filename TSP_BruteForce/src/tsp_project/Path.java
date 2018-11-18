@@ -10,9 +10,6 @@ package tsp_project;
 public class Path {
 	/* Array of candidate paths */
 	private City[] path = new City[Constants.number_of_cities + 1];
-	/* Arrays of candidate paths */
-	public static String[] candidate_paths = new String[numberOfPossiblePaths()];
-	public static City[][] paths = new City[numberOfPossiblePaths()][Constants.number_of_cities + 1];
 	/* Counter needed for permutations */
 	static int counter = 0;
 	
@@ -47,10 +44,10 @@ public class Path {
 	public City[][] convertStringToPath (String[] path) {
 		for (int i=0; i < numberOfPossiblePaths(); i++) {
 			for (int j=0; j < Constants.number_of_cities + 1; j++) {
-				paths[i][j] = Constants.cities[Character.getNumericValue(path[i].charAt(j))];
+				Constants.paths[i][j] = Constants.cities[Character.getNumericValue(path[i].charAt(j))];
 			}
 		}
-		return paths;
+		return Constants.paths;
 	}
 	
 	/* This method returns the number of possible paths */
@@ -72,7 +69,7 @@ public class Path {
 	    if (n == 0) {
 	    	if (counter < numberOfPossiblePaths()) {
 	    		prefix += prefix.substring(0, 1);
-	    		candidate_paths[counter] = prefix;
+	    		Constants.candidate_paths[counter] = prefix;
 	    		counter++;
 	    	}
 	    	else {
@@ -83,11 +80,5 @@ public class Path {
 	        for (int i = 0; i < n; i++)
 	            permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
 	    }
-	}
-	
-	
-	/* This method returns the final possible permutations of all the cities */
-	public void final_permutation(String[] paths) {
-			
 	}
 }

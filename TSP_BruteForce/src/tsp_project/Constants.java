@@ -16,4 +16,7 @@ public interface Constants {
 	public static City[] cities = new City[number_of_cities];
 	/* Matrix of distances between cities */
 	public static int[][] dis_matrix = new int[(int) Math.pow(number_of_cities, 2)][(int) Math.pow(number_of_cities, 2)];
+	/* Arrays of candidate paths */
+	public static String[] candidate_paths = new String[Path.numberOfPossiblePaths()];
+	public static City[][] paths = new City[Path.numberOfPossiblePaths()][Constants.number_of_cities + 1];
 }
