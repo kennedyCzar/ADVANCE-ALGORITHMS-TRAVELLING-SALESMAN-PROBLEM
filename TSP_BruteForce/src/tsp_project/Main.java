@@ -31,9 +31,14 @@ public class Main {
 				else if (Constants.dis_matrix[i][j] != -1) {
 					continue;
 				}
+				/* Symetric matrix of distances */
+//				else {
+//					Constants.dis_matrix[i][j] = Constants.cities[i].distance(Constants.cities[j]);
+//					Constants.dis_matrix[j][i] = Constants.dis_matrix[i][j];
+//				}
+				/* Non symmetric matrix of distances */
 				else {
 					Constants.dis_matrix[i][j] = Constants.cities[i].distance(Constants.cities[j]);
-					Constants.dis_matrix[j][i] = Constants.dis_matrix[i][j];
 				}
 			}
 		}

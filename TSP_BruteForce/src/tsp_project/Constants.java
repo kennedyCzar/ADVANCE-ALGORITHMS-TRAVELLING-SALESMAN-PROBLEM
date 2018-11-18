@@ -8,7 +8,7 @@ package tsp_project;
  *
  */
 public interface Constants {
-	static final int number_of_cities = 3;
+	static final int number_of_cities = 4;
 	static final int distance_min = 50;
 	static final int distance_max = 500;
 	
