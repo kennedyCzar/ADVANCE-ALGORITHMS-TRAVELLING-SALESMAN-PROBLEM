@@ -34,7 +34,7 @@ public class Main {
 				/* Symetric matrix of distances */
 //				else {
 //					Constants.dis_matrix[i][j] = Constants.cities[i].distance(Constants.cities[j]);
-//					Constants.dis_matrix[j][i] = Constants.dis_matrix[i][j];
+//					Constants.dis_matrix[j][xi] = Constants.dis_matrix[i][j];
 //				}
 				/* Non symmetric matrix of distances */
 				else {
@@ -78,6 +78,7 @@ public class Main {
 		
 		/* Applying Brute-Force algorithm */
 		BruteForce brute_force = new BruteForce();
-		brute_force.bruteForce(Constants.paths);
+		/* The second parameter is the starting point : 0 for city A, 1 for city B... */
+		brute_force.bruteForce(Constants.paths, 0);
 	}
 }
