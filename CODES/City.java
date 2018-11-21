@@ -1,13 +1,15 @@
 package bruteforceTSP;
 
+import java.util.ArrayList;
+
 public class City {
 
 	private String name;
 	private char label; // to differentiate between source and other cities
-	private double weight;
-	public City(String name, char label) {
+	public City(String name, char label,ArrayList<City> arr) {
 		this.name = name;
 		this.label = label;
+		arr.add(this);
 
 	}
 	public String getName() {

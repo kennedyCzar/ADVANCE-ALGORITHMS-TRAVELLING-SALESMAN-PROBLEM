@@ -1,14 +1,16 @@
 package bruteforceTSP;
 
+import java.util.ArrayList;
 
 public class Edge {
 	 private City a, b;
 	 private double weight;
 
-	public Edge(City a,City b, double weight) {
+	public Edge(City a,City b, double weight,ArrayList<Edge> arr) {
 		this.a = a;
 		this.b = b;
 		this.weight= weight;
+		arr.add(this);
 	}
  
 	public City getA() {
