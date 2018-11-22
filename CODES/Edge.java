@@ -32,6 +32,9 @@ public class Edge {
 	public City getB() {
 		return b;
 	}
+	public String toString() {
+		return ""+this.weight;
+	}
     
 }
 

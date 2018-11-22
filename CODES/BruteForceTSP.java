@@ -15,7 +15,7 @@ public class BruteForceTSP {
   int Nb_cities ;
   List < String > results = new ArrayList < String > (); // table des permutations (n! permutation in total)
   ArrayList < Edge > edges = new ArrayList < > ();
-  ArrayList < City > citiesArray = new ArrayList < > ();
+  ArrayList < City > citiesArray = new ArrayList <City > ();
   ArrayList<Double> RecordCosts = new ArrayList<Double> ();
 
 
