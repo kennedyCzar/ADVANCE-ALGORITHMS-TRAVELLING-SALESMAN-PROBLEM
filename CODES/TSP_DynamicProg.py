@@ -52,7 +52,7 @@ def tsp(towns):
               
     return min([A_(range(n), j) + dist(towns, j, 0) for j in xrange(1, n)])
 
-
+#euclidean distance function
 def dist(towns, i, j):
     return math.sqrt((towns[i][0]-towns[j][0])*(towns[i][0]-towns[j][0]) + (towns[i][1]-towns[j][1])*(towns[i][1]-towns[j][1]))
     
