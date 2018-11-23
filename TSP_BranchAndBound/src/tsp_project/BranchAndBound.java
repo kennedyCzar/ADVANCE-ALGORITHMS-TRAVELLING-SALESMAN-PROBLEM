@@ -85,6 +85,7 @@ public class BranchAndBound {
 					path1[j] = cities[i][j];
 				}
 				if (pathLengthCompare(distance_min, path1) != -1) {
+					if (pathLengthCompare(distance_min, path1) < Constants.number_of_cities - 2) {
 						int index = 0;
 						for (int k=i+1; k < Path.numberOfPossiblePaths() / Constants.number_of_cities; k++) {
 							City[] path2 = new City[Constants.number_of_cities + 1];
@@ -100,6 +101,7 @@ public class BranchAndBound {
 							}
 						}
 						i += index;
+					}
 				}
 				else {
 					for (int j=0; j < Constants.number_of_cities + 1; j++) {
