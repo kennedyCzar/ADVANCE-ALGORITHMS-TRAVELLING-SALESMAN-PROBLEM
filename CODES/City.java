@@ -1,13 +1,17 @@
 package bruteforceTSP;
 
+import java.util.ArrayList;
+
 public class City {
 
 	private String name;
 	private char label; // to differentiate between source and other cities
-	private double weight;
-	public City(String name, char label) {
+	 public boolean isVisited = false;
+
+	public City(String name, char label,ArrayList<City> arr) {
 		this.name = name;
 		this.label = label;
+		arr.add(this);
 
 	}
 	public String getName() {
@@ -22,6 +26,16 @@ public class City {
 	public void setLabel(char label) {
 		this.label = label;
 	}
+	
+	public boolean isVisited() {
+	
+		return isVisited;
+	}
+	public String toString() {
+		return this.getName();
+	}
+	
+	
 }
 
 

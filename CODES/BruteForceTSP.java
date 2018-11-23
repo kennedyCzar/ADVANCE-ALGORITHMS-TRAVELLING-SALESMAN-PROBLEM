@@ -6,43 +6,103 @@ import java.util.Arrays;
 
 public class BruteForceTSP {
  public static void main(String[] args) {
-  String cities = "abcd";
-  int Nb_cities = cities.length();
+
   List<String> myparts;
   int k = 1;
   int optimalPath_index =0;
   String RealPath =""; // path converted from labels to real names
-
+  String cities ="" ;
+  int Nb_cities ;
   List < String > results = new ArrayList < String > (); // table des permutations (n! permutation in total)
   ArrayList < Edge > edges = new ArrayList < > ();
-  ArrayList < City > citiesArray = new ArrayList < > ();
+  ArrayList < City > citiesArray = new ArrayList <City > ();
   ArrayList<Double> RecordCosts = new ArrayList<Double> ();
 
 
   BruteForceTSP permutation = new BruteForceTSP();
   double cost = 0.0; // at each permutation
   double minimal_cost=99999;
-  City a = new City("Lyon", 'a');
-  City b = new City("Paris", 'b');
-  City c = new City("marseille", 'c');
-  City d = new City("casa",'d');
-
+  City a = new City("Lyon", 'a',citiesArray);
+  City b = new City("Paris", 'b',citiesArray);
+  City c = new City("Marseille", 'c',citiesArray);
+  City d = new City("casa",'d',citiesArray);
+  City e = new City("Lille", 'e',citiesArray);
+  City f = new City("Le-Havre", 'f',citiesArray);
+  City g = new City("Larache", 'g',citiesArray);
+  City h = new City("Tangier",'h',citiesArray);
+  
+  for (int i = 0; i < citiesArray.size(); i++) {
+	  cities += citiesArray.get(i).getLabel();
+}
+   Nb_cities = cities.length();
   // all possible  routes (edges)
-  Edge e1 = new Edge(a, b, 2);
-  Edge e2 = new Edge(a, c, 3);
-  Edge e3  = new Edge(a,d,5);
-  Edge e4 = new Edge(b, a, 9);
-  Edge e5 = new Edge(b, c, 4);
-  Edge e6  = new Edge(b,d,6);
-  Edge e7 = new Edge(c, a, 2);
-  Edge e8 = new Edge(c, b, 1);
-  Edge e9  = new Edge(c,d,3);
-  Edge e10 = new Edge(d,a,2);
-  Edge e11 = new Edge(d,b,4);
-  Edge e12 = new Edge(d,c,8);
-  edges.addAll(Arrays.asList(e1, e2,e3, e4, e5,e6, e7, e8,e9,e10,e11,e12)); //ajouter les edges au tableu des edges
-  citiesArray.addAll(Arrays.asList(a,b,c,d));
-  permutation.permute(cities, 0, Nb_cities - 1, results);
+  Edge e1  = new Edge(a,b,22,edges);
+  Edge e2  = new Edge(a,c,13,edges);
+  Edge e3  = new Edge(a,d,51,edges);
+  Edge e13 = new Edge(a,e,2,edges);
+  Edge e14 = new Edge(a,f,3,edges);
+  Edge e15 = new Edge(a,g,5,edges);
+  Edge e16 = new Edge(a,h,9,edges);
+  
+  Edge e4  = new Edge(b,a,49,edges);
+  Edge e5  = new Edge(b,c,44,edges);
+  Edge e6  = new Edge(b,d,26,edges);
+  Edge e17 = new Edge(b,e,4,edges);
+  Edge e18 = new Edge(b,f,6,edges);
+  Edge e19 = new Edge(b,g,2,edges);
+  Edge e20 = new Edge(b,h,1,edges);
+  
+  Edge e7  = new Edge(c,a,12,edges);
+  Edge e8  = new Edge(c,b,11,edges);
+  Edge e9  = new Edge(c,d,32,edges);
+  Edge e21 = new Edge(c,e,31,edges);
+  Edge e22 = new Edge(c,f,22,edges);
+  Edge e23 = new Edge(c,g,74,edges);
+  Edge e24 = new Edge(c,h,48,edges);
+  
+  Edge e10 = new Edge(d,a,24,edges);
+  Edge e11 = new Edge(d,b,54,edges);
+  Edge e12 = new Edge(d,c,87,edges);
+  Edge e25 = new Edge(d,e,44,edges);
+  Edge e26 = new Edge(d,f,65,edges);
+  Edge e27 = new Edge(d,g,2.36,edges);
+  Edge e28 = new Edge(d,h,51,edges);
+  /*
+  Edge e29 = new Edge(e,a,4,edges);
+  Edge e30 = new Edge(e,b,6,edges);
+  Edge e31 = new Edge(e,c,22,edges);
+  Edge e32 = new Edge(e,d,41,edges);
+  Edge e33 = new Edge(e,f,47,edges);
+  Edge e34 = new Edge(e,g,62,edges);
+  Edge e35 = new Edge(e,h,45,edges);
+  
+  Edge e36 = new Edge(f,a,2.8,edges);
+  Edge e37 = new Edge(f,b,4,edges);
+  Edge e38 = new Edge(f,c,456,edges);
+  Edge e39 = new Edge(f,d,72,edges);
+  Edge e40 = new Edge(f,e,51,edges);
+  Edge e41 = new Edge(f,g,554,edges);
+  Edge e42 = new Edge(f,h,6,edges);
+  
+  Edge e43 = new Edge(g,a,1, edges);
+  Edge e44 = new Edge(g,b,4, edges);
+  Edge e45 = new Edge(g,c,6, edges);
+  Edge e46 = new Edge(g,d,52,edges);
+  Edge e47 = new Edge(g,e,71,edges);
+  Edge e48 = new Edge(g,f,44,edges);
+  Edge e49 = new Edge(g,h,26,edges);
+  
+  Edge e50 = new Edge(h,a,41,edges);
+  Edge e51 = new Edge(h,b,4, edges);
+  Edge e52 = new Edge(h,c,16,edges);
+  Edge e53 = new Edge(h,d,24,edges);
+  Edge e54 = new Edge(h,e,15,edges);
+  Edge e55 = new Edge(h,f,63,edges);
+  Edge e56 = new Edge(h,g,14,edges);*/
+  
+      double begin = System.currentTimeMillis();
+
+   permutation.permute(cities, 0, Nb_cities - 1, results);
 
   System.out.println("possible paths: " + results);
   
@@ -85,9 +145,19 @@ public class BruteForceTSP {
 	   }
 	  System.out.println("the minimal cost to reach your destination is : "+ minimal_cost);
 	  System.out.println("the optimal path is : "+ RealPath);
-	 
+	  double end = System.currentTimeMillis();
+	  	System.out.print("the time taken in (s):  ");
+	  	System.out.print((end-begin)/1000);	  	System.out.print("s");
+
  }
 
+ 
+ 
+
+
+ 
+ 
+ 
  /*  iterate function used to
   *  iterate on the values of i
   *  we record and re-initialise the cost the cost 

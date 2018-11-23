@@ -67,17 +67,8 @@ public class Main {
 		path.cityPermutation(path.convertPathToString(Constants.cities));
 		path.convertStringToPath(Constants.candidate_paths);
 		
-//		System.out.println("The candidate paths are :");
-//		for (int i=0; i < Path.numberOfPossiblePaths(); i++) {
-//			for (int j=0; j < Constants.number_of_cities + 1; j++) {
-//				System.out.print(Constants.paths[i][j].getName());
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
-		
-		/* Applying Brute-Force algorithm */
-		BruteForce brute_force = new BruteForce();
-		brute_force.bruteForce(Constants.paths);
+		/* Applying Branch And Bound algorithm */
+		BranchAndBound branch_and_bound = new BranchAndBound();
+		branch_and_bound.branchAndBound(Constants.paths);
 	}
 }
