@@ -50,7 +50,7 @@ def tsp(towns):
                 if j == 0: continue
                 update_A(S, j, min([A_(excluded(S, j), k) + dist(towns, k, j) for k in S if k != j]))
               
-    return min([A_(range(n), j) + dist(towns, j, 0) for j in xrange(1, n)])
+    return min([A_(range(n), j) + dist(towns, j, 0) for j in range(1, n)])
 
 #euclidean distance function
 def dist(towns, i, j):
@@ -63,7 +63,7 @@ def index(S):
     # than announced, but for n = 25: O(n) is still not that much).
     # [S = sorted(S)] - no need in sorting, since subsets are already sorted when generated!
     res = 0
-    for i in xrange(len(S)):
+    for i in range(len(S)):
         res += binomial(S[i], i+1)
     return res
     
@@ -78,7 +78,7 @@ def binomial(n, k):
     if n < k: return 0
     if binomials[n][k]: return binomials[n][k]
     ntok = 1
-    for t in xrange(min(k, n-k)):
+    for t in range(min(k, n-k)):
         ntok = ntok*(n-t)//(t+1)
     binomials[n][k] = ntok
     return ntok
