@@ -31,14 +31,14 @@ public class BruteForce {
 	}
 	
 	/* This method returns the shortest path (Brute-Force algorithm) */
-	public void bruteForce (City[][] paths, int starting_point) {
-		if (starting_point >= 0 && starting_point <= Constants.number_of_cities - 1) {
+	public void bruteForce (City[][] paths) {
+		if ((Constants.starting_point >= 0) && (Constants.starting_point <= Constants.number_of_cities - 1)) {
 			/* Paths counter */
 			int index = 1;
 			City[] path = new City[Constants.number_of_cities + 1];
 			for (int i=0; i < Path.numberOfPossiblePaths(); i++) {
 				/* Test to compute only the paths starting with the city : starting_point (index of city) */
-				if (Constants.cities[starting_point].equals(paths[i][0])) {
+				if (Constants.cities[Constants.starting_point].equals(paths[i][0])) {
 					System.out.print("Path " + index + " : ");
 					for (int j=0; j < Constants.number_of_cities + 1; j++) {
 						path[j] = paths [i][j];
@@ -59,7 +59,7 @@ public class BruteForce {
 				System.out.print(path[i].getName());
 			}
 			System.out.println();
-			System.out.println("The path length is : " + BruteForce.distance_min);
+			System.out.println("The path length is : " + distance_min);
 		}
 		else {
 			System.out.println("The starting city you gave does not exist");
