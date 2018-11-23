@@ -59,11 +59,11 @@ public class TSPNearestNeighbour
         Scanner scanner = null;
         try
         {
-            System.out.println("Enter the number of nodes in the graph");
+            System.out.println("Enter the number of cities");
             scanner = new Scanner(System.in);
             number_of_nodes = scanner.nextInt();
             int adjacency_matrix[][] = new int[number_of_nodes + 1][number_of_nodes + 1];
-            System.out.println("Enter the adjacency matrix");
+            System.out.println("Enter the adjacency matrix@@according to size of cities/nodes");
             for (int i = 1; i <= number_of_nodes; i++)
             {
                 for (int j = 1; j <= number_of_nodes; j++)
@@ -86,7 +86,7 @@ public class TSPNearestNeighbour
             tspNearestNeighbour.tsp(adjacency_matrix);
         } catch (InputMismatchException inputMismatch)
          {
-             System.out.println("Wrong Input format");
+             System.out.println("Incorrect Input");
          }
         scanner.close();
     }
