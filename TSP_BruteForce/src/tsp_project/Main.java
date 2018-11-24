@@ -12,7 +12,7 @@ public class Main {
 		/* Setting the array of cities by giving each city a random name */
 		for(int i=0; i < Constants.number_of_cities; i++) {
 			char city_name = (char)(i+65);
-			Constants.cities[i] = new City((char)city_name);
+			Constants.cities[i] = new City(city_name+""); // to convert char to String
 		}
 		
 		/* Distances matrix initialization */
@@ -67,18 +67,44 @@ public class Main {
 		path.cityPermutation(path.convertPathToString(Constants.cities));
 		path.convertStringToPath(Constants.candidate_paths);
 		
-		System.out.println("The candidate paths are :");
+		/* it delays showing the result
+			( we are not interested in the path that has as 
+			starting city different from what we want as a starting city )
+		 * 
+		 * System.out.println("The candidate paths are :");
 		for (int i=0; i < Path.numberOfPossiblePaths(); i++) {
 			for (int j=0; j < Constants.number_of_cities + 1; j++) {
-				System.out.print(Constants.paths[i][j].getName());
+				System.out.print( Constants.paths[i][j].getName());
 			}
 			System.out.println();
-		}
+		}*/
+		
 		System.out.println();
+		
 		
 		/* Applying Brute-Force algorithm */
 		BruteForce brute_force = new BruteForce();
 		/* The second parameter is the starting point : 0 for city A, 1 for city B... */
 		brute_force.bruteForce(Constants.paths, 0);
-	}
+		System.out.println("---- Greedy Algorithms ----");
+		GreedyAlgorithm greedy = new GreedyAlgorithm();
+		
+		/* Printing the matrix of distances */
+		System.out.println("Matrix representing the cities and the distances between them :");
+		System.out.println(str2);
+
+		for (int i=0; i < Constants.number_of_cities; i++) {
+			for (int j=0; j < Constants.number_of_cities; j++) {
+		        str += Constants.dis_matrix[i][j] + "\t";
+			}
+			System.out.print(Constants.cities[i].getName());
+			System.out.println(str + "|");
+	        str = "|\t";
+		}
+		System.out.println();
+
+		greedy.GreedyAlgorithm(Constants.paths, 1);
+
+
+		}
 }
