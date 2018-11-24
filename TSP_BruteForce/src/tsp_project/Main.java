@@ -80,10 +80,15 @@ public class Main {
 
 		System.out.println("---- Greedy Algorithm ----");
 		GreedyAlgorithm greedy = new GreedyAlgorithm();
-		
-
 		greedy.GreedyAlgorithm(Constants.paths, 1);
+		
+		System.out.println();
+
+		System.out.println("---- Minimum spanning tree Algorithm ----");
 
 		
+		MST t = new MST(); 
+		t.primMST(Constants.dis_matrix,0); 
+
 	}
 }
