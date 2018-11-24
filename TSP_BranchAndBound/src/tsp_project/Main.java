@@ -1,4 +1,3 @@
-
 /**
  * 
  */
@@ -13,7 +12,7 @@ public class Main {
 		/* Setting the array of cities by giving each city a random name */
 		for(int i=0; i < Constants.number_of_cities; i++) {
 			char city_name = (char)(i+65);
-			Constants.cities[i] = new City(city_name+"");
+			Constants.cities[i] = new City((char)city_name);
 		}
 		
 		/* Distances matrix initialization */
@@ -69,21 +68,7 @@ public class Main {
 		path.convertStringToPath(Constants.candidate_paths);
 		
 		/* Applying Branch And Bound algorithm */
-		System.out.println();
-
-		System.out.println("---- Branch And Bound  Algorithm ----");
 		BranchAndBound branch_and_bound = new BranchAndBound();
 		branch_and_bound.branchAndBound(Constants.paths);
-		/* Applying Greedy  algorithm */
-
-		System.out.println();
-
-		System.out.println("---- Greedy Algorithm ----");
-		GreedyAlgorithm greedy = new GreedyAlgorithm();
-		
-
-		greedy.GreedyAlgorithm(Constants.paths, 1);
-
-		
 	}
 }
