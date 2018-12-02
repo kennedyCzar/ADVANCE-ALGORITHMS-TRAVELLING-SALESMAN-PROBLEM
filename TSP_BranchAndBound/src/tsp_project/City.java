@@ -5,7 +5,7 @@ package tsp_project;
 
 /**
  * @author walid
- *	
+ *
  */
 public class City {
 	private char name;

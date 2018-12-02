@@ -34,7 +34,7 @@ public class Main {
 				/* Symetric matrix of distances */
 //				else {
 //					Constants.dis_matrix[i][j] = Constants.cities[i].distance(Constants.cities[j]);
-//					Constants.dis_matrix[j][xi] = Constants.dis_matrix[i][j];
+//					Constants.dis_matrix[j][i] = Constants.dis_matrix[i][j];
 //				}
 				/* Non symmetric matrix of distances */
 				else {
@@ -67,8 +67,9 @@ public class Main {
 		path.cityPermutation(path.convertPathToString(Constants.cities));
 		path.convertStringToPath(Constants.candidate_paths);
 		
-		/* Applying Branch And Bound algorithm */
-		BranchAndBound branch_and_bound = new BranchAndBound();
-		branch_and_bound.branchAndBound(Constants.paths);
+		/* Branch and Bound Algo */
+		BranchAndBound a = new BranchAndBound();
+		a.initializeNodes();
+		a.branchAndBound();
 	}
 }
