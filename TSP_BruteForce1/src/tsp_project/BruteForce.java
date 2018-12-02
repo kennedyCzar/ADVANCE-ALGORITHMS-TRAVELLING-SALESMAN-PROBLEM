@@ -41,20 +41,21 @@ public class BruteForce {
 				if (Constants.cities[Constants.starting_point].equals(paths[i][0])) {
 					System.out.print("Path " + index + " : ");
 					for (int j=0; j < Constants.number_of_cities + 1; j++) {
-						path[j] = paths[i][j];
+						path[j] = paths [i][j];
 						System.out.print(path[j].getName());
 					}
-					System.out.println();
+					
+				 System.out.println();
 					System.out.println("Length of path " + index + " : " + pathLength(path));
+					System.out.println();
 					index++;
 					
 					if (pathLength(path) < distance_min) {
 						distance_min = pathLength(path);
 					}
-					System.out.println();
 				}
 			}
-			System.out.println("The shortest path that starts from city " + path[0].getName() + " :");
+			System.out.print("The shortest path that starts from city " + path[0].getName() + " :");
 			for (int i=0; i < Constants.number_of_cities + 1; i++) {
 				System.out.print(path[i].getName());
 			}

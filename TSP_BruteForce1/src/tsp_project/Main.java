@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -12,7 +13,7 @@ public class Main {
 		/* Setting the array of cities by giving each city a random name */
 		for(int i=0; i < Constants.number_of_cities; i++) {
 			char city_name = (char)(i+65);
-			Constants.cities[i] = new City((char)city_name);
+			Constants.cities[i] = new City(city_name+"");
 		}
 		
 		/* Distances matrix initialization */
@@ -67,17 +68,27 @@ public class Main {
 		path.cityPermutation(path.convertPathToString(Constants.cities));
 		path.convertStringToPath(Constants.candidate_paths);
 		
-//		System.out.println("The candidate paths are :");
-//		for (int i=0; i < Path.numberOfPossiblePaths(); i++) {
-//			for (int j=0; j < Constants.number_of_cities + 1; j++) {
-//				System.out.print(Constants.paths[i][j].getName());
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
+		/* Applying Branch And Bound algorithm */
+		System.out.println();
+
+		System.out.println("---- Branch And Bound  Algorithm ----");
+		BranchAndBound branch_and_bound = new BranchAndBound();
+		branch_and_bound.branchAndBound(Constants.paths);
+		/* Applying Greedy  algorithm */
+
+		System.out.println();
+
+		System.out.println("---- Greedy Algorithm ----");
+		GreedyAlgorithm greedy = new GreedyAlgorithm();
+		greedy.GreedyAlgorithm(Constants.paths, 1);
 		
-		/* Applying Brute-Force algorithm */
-		BruteForce brute_force = new BruteForce();
-		brute_force.bruteForce(Constants.paths);
+		System.out.println();
+
+		System.out.println("---- Minimum spanning tree Algorithm ----");
+
+		
+		MST t = new MST(); 
+		t.primMST(Constants.dis_matrix,0); 
+
 	}
 }

@@ -8,14 +8,14 @@ package tsp_project;
  *
  */
 public class City {
-	private char name;
-	
-	public City (char name) {
+	private String name;
+	public boolean isVisited = false;
+	public City (String name) {
 		this.name = name;
 	}
 	
 	/* This method returns the name of a city */
-	public char getName () {
+	public String getName () {
 		return this.name;
 	}
 	
@@ -24,4 +24,9 @@ public class City {
 		int dis = (int) ((Math.random() * ((Constants.distance_max - Constants.distance_min) + 1)) + Constants.distance_min);
 		return dis;
 	}
+	
+	
+	
+	
+	
 }
