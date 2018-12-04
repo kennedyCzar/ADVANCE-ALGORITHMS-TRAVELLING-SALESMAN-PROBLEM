@@ -8,7 +8,7 @@ package tsp_project;
  *
  */
 public interface Constants {
-	static final int number_of_cities = 4;
+	static final int number_of_cities = 3;
 	static final int distance_min = 50;
 	static final int distance_max = 500;
 	static final int starting_point = 0;
@@ -22,11 +22,9 @@ public interface Constants {
 	public static City[][] paths = new City[Path.numberOfPossiblePaths()][number_of_cities + 1];
 	
 	/* We store in this matrix the cities left to accomplish the path */
-	public static int[] visited = new int[AddRemoveEdges.nodesNumber()];
-	/*  We store in this matrix the cost of each node */
-	public static int[] node_cost = new int[AddRemoveEdges.nodesNumber()];
+	public static int[] visited = new int[Greedy.nodesNumber()];
 	/* We store in this array the tree nodes (cities) */
-	public static City[] nodes = new City[AddRemoveEdges.nodesNumber()];
+	public static City[] nodes = new City[Greedy.nodesNumber()];
 	/* We store in this array the parent nodes of nodes in the array node_cost */
 	public static int[] origin = new int[Constants.nodes.length];
 }

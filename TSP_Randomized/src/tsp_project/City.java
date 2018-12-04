@@ -8,14 +8,14 @@ package tsp_project;
  *
  */
 public class City {
-	private char name;
+	private String name;
 	
-	public City (char name) {
+	public City (String name) {
 		this.name = name;
 	}
 	
 	/* This method returns the name of a city */
-	public char getName () {
+	public String getName () {
 		return this.name;
 	}
 	

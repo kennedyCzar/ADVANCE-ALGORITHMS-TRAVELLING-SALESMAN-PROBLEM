@@ -9,10 +9,12 @@ package tsp_project;
  */
 public class Main {
 	public static void main (String[] args) {
-		/* Setting the array of cities by giving each city a random name */
+		/* Setting the array of cities by giving each city a name */
+		int nb = 0;
 		for(int i=0; i < Constants.number_of_cities; i++) {
-			char city_name = (char)(i+65);
-			Constants.cities[i] = new City((char)city_name);
+			String city_name = "C" + nb;
+			nb++;
+			Constants.cities[i] = new City(city_name);
 		}
 		
 		/* Distances matrix initialization */

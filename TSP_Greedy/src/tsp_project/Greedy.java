@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.xml.stream.events.StartDocument;
-
 /**
  * @author walid
  *
  */
-public class Randomized {
+public class Greedy {
 	/* This method returns the number of nodes */
 	public static int nodesNumber () {
 		int nodes_nbr = 1 + (Path.numberOfPossiblePaths() / Constants.number_of_cities);
@@ -119,7 +117,7 @@ public class Randomized {
 	}
 
 	/* This method returns the shortest path given a starting point */
-	public void randomized () {
+	public void greedy () {
 		/* Current parent node */
 		int current_parent_node = 0;
 		int path_cost = 0;
@@ -137,23 +135,26 @@ public class Randomized {
 					child_nodes.add(i);
 				}
 			}
-			/* Picking randomly a child node from the table */
-			int random = new Random().nextInt(child_nodes.size());
-			
-			/* Transforming nodes to cities to compute path length */
+			/* Picking the child node that is least costly */
+			int min_cost = 999999999;
 			int city1 = 0;
 			int city2 = 0;
-			for (int i=0; i < Constants.number_of_cities; i++) {
-				if (Constants.cities[i] == Constants.nodes[current_parent_node]) {
-					city1 = i;
+			for (int i=0; i < child_nodes.size(); i++) {
+				for (int j=0; j < Constants.number_of_cities; j++) {
+					if (Constants.cities[j] == Constants.nodes[current_parent_node]) {
+						city1 = j;
+					}
+					if (Constants.cities[j] == Constants.nodes[child_nodes.get(i)]) {
+						city2 = j;
+					}
 				}
-				if (Constants.cities[i] == Constants.nodes[child_nodes.get(random)]) {
-					city2 = i;
+				if (Constants.dis_matrix[city1][city2] < min_cost) {
+					min_cost = Constants.dis_matrix[city1][city2];
+					current_parent_node = child_nodes.get(i);
 				}
 			}
-			path_cost += Constants.dis_matrix[city1][city2];
-			Constants.visited[child_nodes.get(random)] = 1;
-			current_parent_node = child_nodes.get(random);
+			path_cost += min_cost;
+			Constants.visited[current_parent_node] = 1;
 			
 			/* If we reach the leaf of the tree computation is done */
 			if (current_parent_node >= nodesNumber() - (Path.numberOfPossiblePaths() / Constants.number_of_cities)) {
@@ -163,7 +164,7 @@ public class Randomized {
 		while (end != 1);
 		
 		/* Printing the shortest path */
-		System.out.println("The randomized path that starts from city " + Constants.nodes[0].getName() + " :");
+		System.out.println("The result path that starts from city " + Constants.nodes[0].getName() + " using the greedy approach :");
 		for (int i=0; i < nodesNumber(); i++) {
 			if (Constants.visited[i] == 1) {
 				System.out.print(Constants.nodes[i].getName() + " ");

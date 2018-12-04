@@ -6,8 +6,6 @@ package tsp_project;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.stream.events.StartDocument;
-
 /**
  * @author walid
  *
@@ -347,7 +345,7 @@ public class BranchAndBound {
 		System.out.println("The shortest path that starts from city " + Constants.nodes[0].getName() + " :");
 		for (int i=0; i < nodesNumber(); i++) {
 			if (path[i] == 1) {
-				System.out.print(Constants.nodes[i].getName());
+				System.out.print(Constants.nodes[i].getName() + " ");
 			}
 		}
 		System.out.println(Constants.nodes[0].getName());
