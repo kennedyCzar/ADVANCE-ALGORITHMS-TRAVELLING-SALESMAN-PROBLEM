@@ -36,7 +36,7 @@ public class Main {
 				/* Symetric matrix of distances */
 //				else {
 //					Constants.dis_matrix[i][j] = Constants.cities[i].distance(Constants.cities[j]);
-//					Constants.dis_matrix[j][xi] = Constants.dis_matrix[i][j];
+//					Constants.dis_matrix[j][i] = Constants.dis_matrix[i][j];
 //				}
 				/* Non symmetric matrix of distances */
 				else {
@@ -69,17 +69,9 @@ public class Main {
 		path.cityPermutation(path.convertPathToString(Constants.cities));
 		path.convertStringToPath(Constants.candidate_paths);
 		
-//		System.out.println("The candidate paths are :");
-//		for (int i=0; i < Path.numberOfPossiblePaths(); i++) {
-//			for (int j=0; j < Constants.number_of_cities + 1; j++) {
-//				System.out.print(Constants.paths[i][j].getName());
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
-		
-		/* Applying Brute-Force algorithm */
-		BruteForce brute_force = new BruteForce();
-		brute_force.bruteForce(Constants.paths);
+		/* Branch and Bound Algo */
+		Randomized a = new Randomized();
+		a.initializeNodes();
+		a.randomized();
 	}
 }

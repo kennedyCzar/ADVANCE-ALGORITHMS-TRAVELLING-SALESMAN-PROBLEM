@@ -6,8 +6,6 @@ package tsp_project;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.stream.events.StartDocument;
-
 /**
  * @author walid
  *
@@ -200,7 +198,7 @@ public class BranchAndBound {
 	public void branchAndBound () {
 		/* We will store the matrices of reduction in an Arraylist of matrices */
 		List<int[][]> matrices = new ArrayList<int[][]>(nodesNumber());
-		/* Operations will be made on these matrices */
+		/* Operations will be made on this matrix */
 		int[][] m1 = new int[Constants.number_of_cities][Constants.number_of_cities];
 		/* Table used to store the visited cities that represent the final path */
 		int[] path = new int[nodesNumber()];
@@ -347,33 +345,10 @@ public class BranchAndBound {
 		System.out.println("The shortest path that starts from city " + Constants.nodes[0].getName() + " :");
 		for (int i=0; i < nodesNumber(); i++) {
 			if (path[i] == 1) {
-				System.out.print(Constants.nodes[i].getName());
+				System.out.print(Constants.nodes[i].getName() + " ");
 			}
 		}
 		System.out.println(Constants.nodes[0].getName());
 		System.out.println("The path length is : " + Constants.node_cost[current_min_node]);
 	}
-	
-	
-	/* This method returns the length of a given path */
-	public int pathLength (City[] path) {
-		int length = 0;
-		int[] tab_of_indexes = new int[path.length];
-		for (int i=0; i < path.length; i++) {
-			for (int j=0; j < Constants.number_of_cities; j++) {
-				if (path[i].equals(Constants.cities[j])) {
-					tab_of_indexes[i] = j;
-				}
-				else {
-					continue;
-				}
-			}
-		}
-		for (int i=0; i < Constants.number_of_cities; i++) {
-			length += Constants.dis_matrix[tab_of_indexes[i]][tab_of_indexes[i+1]];
-		}
-		return length;
-	}
-	
-	
 }
