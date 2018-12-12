@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * @author walid
- *
- */
+
 public class MainBranchAndBound {
 	private static Scanner sc;
 	static int database = Constants.use_database;
@@ -20,15 +17,15 @@ public class MainBranchAndBound {
 	
 	public static void main (String[] args) {
 		/* Distances matrix initialization */
-		for (int i=0; i < City.numberOfCities(); i++) {
-			for (int j=0; j < City.numberOfCities(); j++) {
+		for (int i=0; i < Constants.number_of_cities; i++) {
+			for (int j=0; j < Constants.number_of_cities; j++) {
 				Constants.dis_matrix[i][j] = -1;
 			}
 		}
 		
 		/* Setting the array of cities by giving each city a name */
 		int nb = 0;
-		for(int i=0; i < City.numberOfCities(); i++) {
+		for(int i=0; i < Constants.number_of_cities; i++) {
 			String city_name = "C" + nb;
 			nb++;
 			Constants.cities[i] = new City(city_name);
@@ -48,9 +45,9 @@ public class MainBranchAndBound {
 					}
 				}
 			
-				for (int i=0; i < City.numberOfCities(); i++) {
-					for (int j=0; j < City.numberOfCities(); j++) {
-						Constants.dis_matrix[i][j] = rows.get(j + (i * City.numberOfCities()));
+				for (int i=0; i < Constants.number_of_cities; i++) {
+					for (int j=0; j < Constants.number_of_cities; j++) {
+						Constants.dis_matrix[i][j] = rows.get(j + (i * Constants.number_of_cities));
 					}
 				}
 			}
@@ -59,15 +56,15 @@ public class MainBranchAndBound {
 				database = 0;
 	            e.printStackTrace();
 			}
-//			System.out.println(City.numberOfCities());
+//			System.out.println(Constants.number_of_cities);
 //			for (int i=0; i < cities.size(); i++) {
 //				System.out.println(cities.get(i).getName() + " " + cities.get(i).getX() + " " + cities.get(i).getY());
 //			}
 		}
 		if (database != 1) {
 			/* Setting the matrix of distances by giving random distances between cities */
-			for (int i=0; i < City.numberOfCities(); i++) {
-				for (int j=0; j < City.numberOfCities(); j++) {
+			for (int i=0; i < Constants.number_of_cities; i++) {
+				for (int j=0; j < Constants.number_of_cities; j++) {
 					if (i == j) {
 						continue;
 					}
@@ -91,13 +88,13 @@ public class MainBranchAndBound {
 		System.out.println("Matrix representing the cities and the distances between them :");
 		String str = "|\t";
 		String str2 = "\t";
-		for(int k=0; k < City.numberOfCities(); k++) {
+		for(int k=0; k < Constants.number_of_cities; k++) {
 			str2 += " " + Constants.cities[k].getName() + "\t";
 		}
 		System.out.println(str2);
 		
-		for (int i=0; i < City.numberOfCities(); i++) {
-			for (int j=0; j < City.numberOfCities(); j++) {
+		for (int i=0; i < Constants.number_of_cities; i++) {
+			for (int j=0; j < Constants.number_of_cities; j++) {
 		        str += Constants.dis_matrix[i][j] + "\t";
 			}
 			System.out.print(Constants.cities[i].getName());

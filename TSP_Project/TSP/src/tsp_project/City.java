@@ -1,6 +1,3 @@
-/**
- * 
- */
 package tsp_project;
 
 import java.io.File;
@@ -12,7 +9,6 @@ import java.util.Scanner;
  *
  */
 public class City {
-	static int number_of_cities = numberOfCities();
 	private static Scanner sc;
 	static int database = Constants.use_database;
 	private String name;
@@ -33,28 +29,5 @@ public class City {
 	}
 	
 	/* This method returns the number of cities */
-	public static int numberOfCities () {
-		int nb = 0;
-		if (database == 1) {
-			try {
-				File f = new File(Constants.database);
-				sc = new Scanner(f);
-				
-				while (sc.hasNextLine()) {
-					String line = sc.nextLine();
-					String[] details = line.split("\\s+");
-					nb = details.length;
-				}
-			}
-			catch (FileNotFoundException e) {
-				System.out.println("The file was not found");
-				database = 0;
-	            e.printStackTrace();
-			}
-		}
-		else {
-			nb = Constants.number_of_cities;
-		}
-		return nb;
-	}
+
 }

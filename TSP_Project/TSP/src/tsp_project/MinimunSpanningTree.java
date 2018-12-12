@@ -7,7 +7,7 @@ import java.util.*;
 
 class MinimunSpanningTree {
 	// Number of vertices in the graph
-	private static final int V = City.numberOfCities();
+	private static final int V = Constants.number_of_cities;
 
 	// A utility function to find the vertex with minimum key
 	// value, from the set of vertices not yet included in MST
@@ -109,7 +109,7 @@ class MinimunSpanningTree {
 			if (!paTh.contains(arrOfPath.get(i))) {
 				paTh.add(arrOfPath.get(i));
 
-				for (int j = 0; j < City.numberOfCities(); j++) {
+				for (int j = 0; j < Constants.number_of_cities; j++) {
 					for (int j2 = 0; j2 < mstSet.length; j2++) {
 						if (paTh.get(paTh.size() - 2) == Constants.cities[j].getName()
 								&& paTh.get(paTh.size() - 1) == Constants.cities[j2].getName()) {
@@ -123,7 +123,7 @@ class MinimunSpanningTree {
 
 		}
 		paTh.add(Constants.cities[starting_point].getName());
-		for (int i = 0; i < City.numberOfCities(); i++) {
+		for (int i = 0; i < Constants.number_of_cities; i++) {
 			if (Constants.cities[i].getName() == paTh.get(paTh.size() - 2)) {
 				cost += Constants.dis_matrix[i][starting_point];
 

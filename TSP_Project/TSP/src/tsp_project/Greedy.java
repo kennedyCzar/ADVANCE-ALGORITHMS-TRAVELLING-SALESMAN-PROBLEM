@@ -11,12 +11,12 @@ public class Greedy {
 		int cost = 0 ;
 		int storing_sp = starting_point;
 		ArrayList<String> path = new ArrayList<>();
-		if (starting_point >= 0 && starting_point <= City.numberOfCities() - 1) {
+		if (starting_point >= 0 && starting_point <= Constants.number_of_cities - 1) {
 			// add the starting point to array of path
 			path.add(Constants.cities[starting_point].getName());
 			Constants.cities[starting_point].isVisited=true;
-
-			for (int i=0; i < City.numberOfCities(); i++) { 
+			
+			for (int i=0; i < Constants.number_of_cities; i++) { 
 				if (Constants.dis_matrix[starting_point][i]<= min 
 						&& Constants.dis_matrix[starting_point][i] !=-1
 						&& Constants.cities[i].isVisited == false) {
@@ -34,7 +34,7 @@ public class Greedy {
 			min = 9999999;
 			ArrayList<Integer> remainingCitiesIndexes = new ArrayList<Integer>();
 
-			for (int i = 0; i < City.numberOfCities(); i++) {
+			for (int i = 0; i < Constants.number_of_cities; i++) {
 				
 				if (Constants.cities[i].isVisited == false && i != indexOfLastVisitedCity) {
 					remainingCitiesIndexes.add(i);	
@@ -54,7 +54,7 @@ public class Greedy {
 			path.add(Constants.cities[indexOfLastVisitedCity].getName());
 			cost += Constants.dis_matrix[starting_point][indexOfLastVisitedCity];
 
-			} while (path.size() != City.numberOfCities());
+			} while (path.size() != Constants.number_of_cities);
 			
 			path.add(path.get(0)); // add the source City to complete the cycle after visiting all other cities
 			cost += Constants.dis_matrix[indexOfLastVisitedCity][storing_sp];

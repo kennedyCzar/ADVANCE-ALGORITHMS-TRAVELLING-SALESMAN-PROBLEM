@@ -14,8 +14,8 @@ import java.util.Random;
 public class Randomized {
 	/* This method returns the number of nodes */
 	public static int nodesNumber () {
-		int nodes_nbr = 1 + (Path.numberOfPossiblePaths() / City.numberOfCities());
-		int tree_level = City.numberOfCities() - 1;
+		int nodes_nbr = 1 + (Path.numberOfPossiblePaths() / Constants.number_of_cities);
+		int tree_level = Constants.number_of_cities - 1;
 		int val = 1;
 		
 		while (tree_level > 1) {
@@ -57,21 +57,21 @@ public class Randomized {
 		int step = 2;
 		int step1 = 1;
 		/* First 2 levels of tree */
-		for (int i=0; i < City.numberOfCities(); i++) {
+		for (int i=0; i < Constants.number_of_cities; i++) {
 			Constants.nodes[i] = Constants.cities[i];
 		}
 		
 		/* Last 2 levels of tree */
-		for (int i=City.numberOfCities() - 1; i > City.numberOfCities() - 3; i--) {
-				for (int j = index + (Path.numberOfPossiblePaths() / City.numberOfCities()) - 1; j >= index; j--) {
+		for (int i=Constants.number_of_cities - 1; i > Constants.number_of_cities - 3; i--) {
+				for (int j = index + (Path.numberOfPossiblePaths() / Constants.number_of_cities) - 1; j >= index; j--) {
 				Constants.nodes[index1] = Constants.paths[j][i];
 				index1--;
 			}
 		}
 		/* Remaining levels */
-		for (int i=City.numberOfCities() - 3; i > 1; i--) {
-			if (step <= Path.numberOfPossiblePaths() / City.numberOfCities()) {
-				for (int j = index + (Path.numberOfPossiblePaths() / City.numberOfCities()) - 1; j >= index; j -= step) {
+		for (int i=Constants.number_of_cities - 3; i > 1; i--) {
+			if (step <= Path.numberOfPossiblePaths() / Constants.number_of_cities) {
+				for (int j = index + (Path.numberOfPossiblePaths() / Constants.number_of_cities) - 1; j >= index; j -= step) {
 					Constants.nodes[index1] = Constants.paths[j][i];
 					index1--;
 				}
@@ -85,11 +85,11 @@ public class Randomized {
 		
 		/* Filling the table origin (nodes parents) */
 		/* Number of children of a node */
-		int nb1 = City.numberOfCities() - 2;
+		int nb1 = Constants.number_of_cities - 2;
 		/* Content to be stored in the table origin */
 		int nb2 = 1;
 		/* Where to start filling table origin */
-		int index2 = City.numberOfCities();
+		int index2 = Constants.number_of_cities;
 		/* To keep track of the number of the nodes at every itteration */
 		int index4 = 1;
 		while (nb1 > 1) {
@@ -141,7 +141,7 @@ public class Randomized {
 			/* Transforming nodes to cities to compute path length */
 			int city1 = 0;
 			int city2 = 0;
-			for (int i=0; i < City.numberOfCities(); i++) {
+			for (int i=0; i < Constants.number_of_cities; i++) {
 				if (Constants.cities[i] == Constants.nodes[current_parent_node]) {
 					city1 = i;
 				}
@@ -154,7 +154,7 @@ public class Randomized {
 			current_parent_node = child_nodes.get(random);
 			
 			/* If we reach the leaf of the tree computation is done */
-			if (current_parent_node >= nodesNumber() - (Path.numberOfPossiblePaths() / City.numberOfCities())) {
+			if (current_parent_node >= nodesNumber() - (Path.numberOfPossiblePaths() / Constants.number_of_cities)) {
 				end = 1;
 			}
 		}
@@ -170,7 +170,7 @@ public class Randomized {
 				last_node = i;
 			}
 		}
-		for (int i=0; i < City.numberOfCities(); i++) {
+		for (int i=0; i < Constants.number_of_cities; i++) {
 			if (Constants.cities[i] == Constants.nodes[last_node]) {
 				last_node = i;
 				break;
