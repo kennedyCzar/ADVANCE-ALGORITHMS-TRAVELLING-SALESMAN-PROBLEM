@@ -8,7 +8,7 @@ import java.util.*;
  * Help Karp method of finding tour of traveling salesman.
  *
  * Time complexity - O(2^n * n^2)
- * Space complexity - O(2^n)
+ * Space complexity - O(N2^n)
  *
  * https://en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm
  */
