@@ -8,7 +8,9 @@ package tsp_project;
  *
  */
 public class City {
+	static int database = Constants.use_database;
 	private String name;
+	public boolean isVisited = false;
 	
 	public City (String name) {
 		this.name = name;
@@ -21,7 +23,6 @@ public class City {
 	
 	/* This method generates a random value for distance between cities */
 	public int distance (City city) {
-		int dis = (int) ((Math.random() * ((Constants.distance_max - Constants.distance_min) + 1)) + Constants.distance_min);
-		return dis;
+		return (int) ((Math.random() * ((Constants.distance_max - Constants.distance_min) + 1)) + Constants.distance_min);
 	}
 }

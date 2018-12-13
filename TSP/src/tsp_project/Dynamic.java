@@ -15,6 +15,7 @@ import java.util.*;
 public class Dynamic {
 
     private static int INFINITY = 100000000;
+    int min_cost = 0;
 
     private static class Index {
         int currentVertex;
@@ -99,6 +100,7 @@ public class Dynamic {
             int cost = distance[k][0] + getCost(copySet, k, minCostDP);
             if(cost < min) {
                 min = cost;
+                min_cost = cost;
                 prevVertex = k;
             }
         }
@@ -128,6 +130,8 @@ public class Dynamic {
         System.out.println("The shortest path using the dynamic approach :");
         System.out.print("C");
         System.out.println(joiner.toString());
+        System.out.print("The path length is : ");
+        System.out.println(min_cost);
     }
 
     private int getCost(Set<Integer> set, int prevVertex, Map<Index, Integer> minCostDP) {

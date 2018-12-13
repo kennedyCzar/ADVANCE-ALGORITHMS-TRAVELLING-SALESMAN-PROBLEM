@@ -6,11 +6,11 @@ package tsp_project;
 
 public interface Constants {
 	
-	static final int number_of_cities = 6;
+	static final int number_of_cities = 10; 
 	static final int distance_min = 50;
 	static final int distance_max = 500;
 	static final int starting_point = 0;
-	static final int use_database = 0;
+	static final int use_database = 1;
 	
 	/* Database file */
 	public static final String database = "src/database.txt";

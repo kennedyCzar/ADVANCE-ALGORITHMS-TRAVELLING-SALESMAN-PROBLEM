@@ -9,7 +9,7 @@ package tsp_project;
  */
 public class Path {
 	/* Array of candidate paths */
-	private City[] path = new City[Constants.number_of_cities + 1];
+	private City[] path = new City[Main.number_of_cities + 1];
 	/* Counter needed for permutations */
 	static int counter = 0;
 	
@@ -23,10 +23,10 @@ public class Path {
 	
 	/* Initialization of the array with the first combination of cities */
 	public City[] initialPath () {
-		for (int i=0; i < Constants.number_of_cities; i++) {
+		for (int i=0; i < Main.number_of_cities; i++) {
 			this.path[i] = Constants.cities[i];
 		}
-		this.path[Constants.number_of_cities] = Constants.cities[0];
+		this.path[Main.number_of_cities] = Constants.cities[0];
 		return this.path;
 	}
 	
@@ -43,7 +43,7 @@ public class Path {
 	/* This method converts a string to a path */
 	public City[][] convertStringToPath (String[] path) {
 		for (int i=0; i < numberOfPossiblePaths(); i++) {
-			for (int j=0; j < Constants.number_of_cities + 1; j++) {
+			for (int j=0; j < Main.number_of_cities + 1; j++) {
 				Constants.paths[i][j] = Constants.cities[Character.getNumericValue(path[i].charAt(j))];
 			}
 		}
@@ -53,8 +53,8 @@ public class Path {
 	/* This method returns the number of possible paths */
 	public static int numberOfPossiblePaths () {
 		int number_of_possible_paths = 1;
-		for(int i=1; i <= Constants.number_of_cities; i++) {    
-		      number_of_possible_paths = number_of_possible_paths * i;
+		for(int i=1; i <= Main.number_of_cities; i++) {
+			number_of_possible_paths = number_of_possible_paths * i;
 		}
 		return number_of_possible_paths;
 	}

@@ -9,7 +9,6 @@ import java.util.Scanner;
  *
  */
 public class City {
-	private static Scanner sc;
 	static int database = Constants.use_database;
 	private String name;
 	public boolean isVisited = false;
@@ -27,7 +26,4 @@ public class City {
 	public int distance (City city) {
 		return (int) ((Math.random() * ((Constants.distance_max - Constants.distance_min) + 1)) + Constants.distance_min);
 	}
-	
-	/* This method returns the number of cities */
-
 }

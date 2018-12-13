@@ -16,36 +16,36 @@ public class BranchAndBound {
 	/* This method does the reduction process on the given matrix */
 	public int[][] matrixReduction (int[][] dis_matrix) {
 		/* Table of minimum values of rows */
-		int[] min_rows = new int[Constants.number_of_cities];
+		int[] min_rows = new int[Main.number_of_cities];
 		/* Table of minimum values of columns */
-		int[] min_columns = new int[Constants.number_of_cities];
+		int[] min_columns = new int[Main.number_of_cities];
 		/* Matrix of reduction */
-		int[][] matrix = new int[Constants.number_of_cities][Constants.number_of_cities];
+		int[][] matrix = new int[Main.number_of_cities][Main.number_of_cities];
 		/* Cost of reduction on rows */
 		int cost_rows = 0;
 		/* Cost of reduction on columns */
 		int cost_columns = 0;
 
 		/* Reduction on rows */
-		for (int i=0; i < Constants.number_of_cities; i++) {
+		for (int i=0; i < Main.number_of_cities; i++) {
 			int min = Constants.distance_max + 1;
 			int index = 0;
-			for (int j = 0; j < Constants.number_of_cities; j++) {
+			for (int j = 0; j < Main.number_of_cities; j++) {
 				if (dis_matrix[i][j] < min && dis_matrix[i][j] != -1) {
 					min = dis_matrix[i][j];
 				} else if (dis_matrix[i][j] == -1) {
 					index++;
 				}
 			}
-			if (index == Constants.number_of_cities) {
+			if (index == Main.number_of_cities) {
 				min_rows[i] = 0;
 			} else {
 				min_rows[i] = min;
 			}
 		}
-		for (int i=0; i < Constants.number_of_cities; i++) {
+		for (int i=0; i < Main.number_of_cities; i++) {
 			cost_rows += min_rows[i];
-			for (int j=0; j < Constants.number_of_cities; j++) {
+			for (int j=0; j < Main.number_of_cities; j++) {
 				if (dis_matrix[i][j] != -1 && min_rows[i] != 0) {
 					matrix[i][j] = dis_matrix[i][j] - min_rows[i];
 				} else {
@@ -54,25 +54,25 @@ public class BranchAndBound {
 			}
 		}
 		/* Reduction on columns */
-		for (int i=0; i < Constants.number_of_cities; i++) {
+		for (int i=0; i < Main.number_of_cities; i++) {
 			int min = Constants.distance_max + 1;
 			int index = 0;
-			for (int j=0; j < Constants.number_of_cities; j++) {
+			for (int j=0; j < Main.number_of_cities; j++) {
 				if (matrix[j][i] < min && matrix[j][i] != -1) {
 					min = matrix[j][i];
 				} else if (matrix[j][i] == -1) {
 					min = 0;
 				}
 			}
-			if (index == Constants.number_of_cities) {
+			if (index == Main.number_of_cities) {
 				min_columns[i] = 0;
 			} else {
 				min_columns[i] = min;
 			}
 		}
-		for (int i=0; i < Constants.number_of_cities; i++) {
+		for (int i=0; i < Main.number_of_cities; i++) {
 			cost_columns += min_columns[i];
-			for (int j=0; j < Constants.number_of_cities; j++) {
+			for (int j=0; j < Main.number_of_cities; j++) {
 				if (matrix[j][i] != -1 && min_columns[i] != 0) {
 					matrix[j][i] -= min_columns[i];
 				}
@@ -85,8 +85,8 @@ public class BranchAndBound {
 
 	/* This method returns the number of nodes */
 	public static int nodesNumber () {
-		int nodes_nbr = 1 + (Path.numberOfPossiblePaths() / Constants.number_of_cities);
-		int tree_level = Constants.number_of_cities - 1;
+		int nodes_nbr = 1 + (Path.numberOfPossiblePaths() / Main.number_of_cities);
+		int tree_level = Main.number_of_cities - 1;
 		int val = 1;
 		
 		while (tree_level > 1) {
@@ -135,21 +135,21 @@ public class BranchAndBound {
 		int step = 2;
 		int step1 = 1;
 		/* First 2 levels of tree */
-		for (int i=0; i < Constants.number_of_cities; i++) {
+		for (int i=0; i < Main.number_of_cities; i++) {
 			Constants.nodes[i] = Constants.cities[i];
 		}
 		
 		/* Last 2 levels of tree */
-		for (int i=Constants.number_of_cities - 1; i > Constants.number_of_cities - 3; i--) {
-				for (int j = index + (Path.numberOfPossiblePaths() / Constants.number_of_cities) - 1; j >= index; j--) {
+		for (int i=Main.number_of_cities - 1; i > Main.number_of_cities - 3; i--) {
+				for (int j = index + (Path.numberOfPossiblePaths() / Main.number_of_cities) - 1; j >= index; j--) {
 				Constants.nodes[index1] = Constants.paths[j][i];
 				index1--;
 			}
 		}
 		/* Remaining levels */
-		for (int i=Constants.number_of_cities - 3; i > 1; i--) {
-			if (step <= Path.numberOfPossiblePaths() / Constants.number_of_cities) {
-				for (int j = index + (Path.numberOfPossiblePaths() / Constants.number_of_cities) - 1; j >= index; j -= step) {
+		for (int i=Main.number_of_cities - 3; i > 1; i--) {
+			if (step <= Path.numberOfPossiblePaths() / Main.number_of_cities) {
+				for (int j = index + (Path.numberOfPossiblePaths() / Main.number_of_cities) - 1; j >= index; j -= step) {
 					Constants.nodes[index1] = Constants.paths[j][i];
 					index1--;
 				}
@@ -163,11 +163,11 @@ public class BranchAndBound {
 		
 		/* Filling the table origin (nodes parents) */
 		/* Number of children of a node */
-		int nb1 = Constants.number_of_cities - 2;
+		int nb1 = Main.number_of_cities - 2;
 		/* Content to be stored in the table origin */
 		int nb2 = 1;
 		/* Where to start filling table origin */
-		int index2 = Constants.number_of_cities;
+		int index2 = Main.number_of_cities;
 		/* To keep track of the number of the nodes at every itteration */
 		int index4 = 1;
 		while (nb1 > 1) {
@@ -199,7 +199,7 @@ public class BranchAndBound {
 		/* We will store the matrices of reduction in an Arraylist of matrices */
 		List<int[][]> matrices = new ArrayList<int[][]>(nodesNumber());
 		/* Operations will be made on this matrix */
-		int[][] m1 = new int[Constants.number_of_cities][Constants.number_of_cities];
+		int[][] m1 = new int[Main.number_of_cities][Main.number_of_cities];
 		/* Table used to store the visited cities that represent the final path */
 		int[] path = new int[nodesNumber()];
 		/* Current parent node */
@@ -214,8 +214,8 @@ public class BranchAndBound {
 		int end = 0;
 
 		/* Initializing the list of matrices */
-		for (int i=0; i < Constants.number_of_cities; i++) {
-			for (int j=0; j < Constants.number_of_cities; j++) {
+		for (int i=0; i < Main.number_of_cities; i++) {
+			for (int j=0; j < Main.number_of_cities; j++) {
 				m1[i][j] = 0;
 			}
 		}
@@ -247,15 +247,15 @@ public class BranchAndBound {
 			for (int i=1; i < nodesNumber(); i++) {
 				if (Constants.origin[i] == current_parent_node) {
 					/* m1 = matrices.get(current_parent_node); */
-					for (int j=0; j < Constants.number_of_cities; j++) {
-						for (int k=0; k < Constants.number_of_cities; k++) {
+					for (int j=0; j < Main.number_of_cities; j++) {
+						for (int k=0; k < Main.number_of_cities; k++) {
 							m1[j][k] = matrices.get(current_parent_node)[j][k];
 						}
 					}
 					int index1 = 0;
 					int index2 = 0;
-					for (int j=0; j < Constants.number_of_cities; j++) {
-						for (int k=0; k < Constants.number_of_cities; k++) {
+					for (int j=0; j < Main.number_of_cities; j++) {
+						for (int k=0; k < Main.number_of_cities; k++) {
 							if (Constants.cities[k].equals(Constants.nodes[current_parent_node])) {
 								index1 = k;
 							}
@@ -275,7 +275,7 @@ public class BranchAndBound {
 			}
 			/* Updating min_cost when leaf is reached */
 			/* Testing if the index of current node is an index of a leaf node */
-			if (current_parent_node >= nodesNumber() - (Path.numberOfPossiblePaths() / Constants.number_of_cities)) {
+			if (current_parent_node >= nodesNumber() - (Path.numberOfPossiblePaths() / Main.number_of_cities)) {
 				min_cost = Constants.node_cost[current_parent_node];
 			}
 			
@@ -343,12 +343,14 @@ public class BranchAndBound {
 		
 		/* Printing the shortest path */
 		System.out.println("The shortest path that starts from city " + Constants.nodes[0].getName() + " :");
+		int index_of_leef = 0;
 		for (int i=0; i < nodesNumber(); i++) {
 			if (path[i] == 1) {
 				System.out.print(Constants.nodes[i].getName() + " ");
+				index_of_leef = i;
 			}
 		}
 		System.out.println(Constants.nodes[0].getName());
-		System.out.println("The path length is : " + Constants.node_cost[current_min_node]);
+		System.out.println("The path length is : " + Constants.node_cost[index_of_leef]);
 	}
 }
