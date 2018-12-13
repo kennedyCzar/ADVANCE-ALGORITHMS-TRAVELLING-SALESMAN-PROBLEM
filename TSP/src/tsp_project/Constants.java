@@ -12,13 +12,13 @@ public interface Constants {
 	static final int distance_min = 50;
 	static final int distance_max = 500;
 	static final int starting_point = 0;
-	static final int use_database = 1;
+	static final int use_database = 0;
 	
 	/* Database file */
 	public static final String database = "src/database.txt";
 	
 	/* This array is used to store the final edges */
-	public static int[][] final_edges = new int[number_of_cities][number_of_cities];
+	public static int[][] final_edges = new int[Main.number_of_cities][Main.number_of_cities];
 	
 	/* We store in this matrix the cities left to accomplish the path */
 	public static int[] visited = new int[BranchAndBound.nodesNumber()];

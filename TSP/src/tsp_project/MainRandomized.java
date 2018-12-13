@@ -19,21 +19,6 @@ public class MainRandomized {
 	
 	
 	public static void main (String[] args) {
-		/* Distances matrix initialization */
-		for (int i=0; i < Main.number_of_cities; i++) {
-			for (int j=0; j < Main.number_of_cities; j++) {
-				Constants.dis_matrix[i][j] = -1;
-			}
-		}
-		
-		/* Setting the array of cities by giving each city a name */
-		int nb = 0;
-		for(int i=0; i < Main.number_of_cities; i++) {
-			String city_name = "C" + nb;
-			nb++;
-			Constants.cities[i] = new City(city_name);
-		}
-		
 		if (database == 1) {
 			List<Integer> rows = new ArrayList<Integer>();
 			try {
@@ -43,9 +28,25 @@ public class MainRandomized {
 				while (sc.hasNextLine()) {
 					String line = sc.nextLine();
 					String[] details = line.split("\\s+");
+					Main.number_of_cities = details.length;
 					for(String s: details) {
 						rows.add(Integer.parseInt(s));
 					}
+				}
+				
+				/* Distances matrix initialization */
+				for (int i=0; i < Main.number_of_cities; i++) {
+					for (int j=0; j < Main.number_of_cities; j++) {
+						Constants.dis_matrix[i][j] = -1;
+					}
+				}
+				
+				/* Setting the array of cities by giving each city a name */
+				int nb = 0;
+				for(int i=0; i < Main.number_of_cities; i++) {
+					String city_name = "C" + nb;
+					nb++;
+					Constants.cities[i] = new City(city_name);
 				}
 			
 				for (int i=0; i < Main.number_of_cities; i++) {
@@ -65,6 +66,23 @@ public class MainRandomized {
 //			}
 		}
 		if (database != 1) {
+			Main.number_of_cities = Constants.number_of_cities;
+			
+			/* Distances matrix initialization */
+			for (int i=0; i < Main.number_of_cities; i++) {
+				for (int j=0; j < Main.number_of_cities; j++) {
+					Constants.dis_matrix[i][j] = -1;
+				}
+			}
+			
+			/* Setting the array of cities by giving each city a name */
+			int nb = 0;
+			for(int i=0; i < Main.number_of_cities; i++) {
+				String city_name = "C" + nb;
+				nb++;
+				Constants.cities[i] = new City(city_name);
+			}
+			
 			/* Setting the matrix of distances by giving random distances between cities */
 			for (int i=0; i < Main.number_of_cities; i++) {
 				for (int j=0; j < Main.number_of_cities; j++) {

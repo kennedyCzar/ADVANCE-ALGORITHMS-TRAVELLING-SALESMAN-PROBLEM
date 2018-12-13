@@ -19,21 +19,6 @@ public class MainAddAndRemoveEdges {
 	
 	
 	public static void main (String[] args) {
-		/* Distances matrix initialization */
-		for (int i=0; i < Main.number_of_cities; i++) {
-			for (int j=0; j < Main.number_of_cities; j++) {
-				Constants.dis_matrix[i][j] = -1;
-			}
-		}
-		
-		/* Setting the array of cities by giving each city a name */
-		int nb = 0;
-		for(int i=0; i < Main.number_of_cities; i++) {
-			String city_name = "C" + nb;
-			nb++;
-			Constants.cities[i] = new City(city_name);
-		}
-		
 		if (database == 1) {
 			List<Integer> rows = new ArrayList<Integer>();
 			try {
@@ -43,9 +28,25 @@ public class MainAddAndRemoveEdges {
 				while (sc.hasNextLine()) {
 					String line = sc.nextLine();
 					String[] details = line.split("\\s+");
+					Main.number_of_cities = details.length;
 					for(String s: details) {
 						rows.add(Integer.parseInt(s));
 					}
+				}
+				
+				/* Distances matrix initialization */
+				for (int i=0; i < Main.number_of_cities; i++) {
+					for (int j=0; j < Main.number_of_cities; j++) {
+						Constants.dis_matrix[i][j] = -1;
+					}
+				}
+				
+				/* Setting the array of cities by giving each city a name */
+				int nb = 0;
+				for(int i=0; i < Main.number_of_cities; i++) {
+					String city_name = "C" + nb;
+					nb++;
+					Constants.cities[i] = new City(city_name);
 				}
 			
 				for (int i=0; i < Main.number_of_cities; i++) {
@@ -65,6 +66,23 @@ public class MainAddAndRemoveEdges {
 //			}
 		}
 		if (database != 1) {
+			Main.number_of_cities = Constants.number_of_cities;
+			
+			/* Distances matrix initialization */
+			for (int i=0; i < Main.number_of_cities; i++) {
+				for (int j=0; j < Main.number_of_cities; j++) {
+					Constants.dis_matrix[i][j] = -1;
+				}
+			}
+			
+			/* Setting the array of cities by giving each city a name */
+			int nb = 0;
+			for(int i=0; i < Main.number_of_cities; i++) {
+				String city_name = "C" + nb;
+				nb++;
+				Constants.cities[i] = new City(city_name);
+			}
+			
 			/* Setting the matrix of distances by giving random distances between cities */
 			for (int i=0; i < Main.number_of_cities; i++) {
 				for (int j=0; j < Main.number_of_cities; j++) {
@@ -85,33 +103,6 @@ public class MainAddAndRemoveEdges {
 					}
 				}
 			}
-//			Constants.dis_matrix[0][1] = 3;
-//			Constants.dis_matrix[0][2] = 4;
-//			Constants.dis_matrix[0][3] = 2;
-//			Constants.dis_matrix[0][4] = 7;
-//			Constants.dis_matrix[1][2] = 4;
-//			Constants.dis_matrix[1][3] = 6;
-//			Constants.dis_matrix[1][4] = 3;
-//			Constants.dis_matrix[2][3] = 5;
-//			Constants.dis_matrix[2][4] = 8;
-//			Constants.dis_matrix[3][4] = 6;
-//	
-//			Constants.dis_matrix[0][0] = -1;
-//			Constants.dis_matrix[1][1] = -1;
-//			Constants.dis_matrix[2][2] = -1;
-//			Constants.dis_matrix[3][3] = -1;
-//			Constants.dis_matrix[4][4] = -1;
-//			
-//			Constants.dis_matrix[1][0] = 3;
-//			Constants.dis_matrix[2][0] = 4;
-//			Constants.dis_matrix[3][0] = 2;
-//			Constants.dis_matrix[4][0] = 7;
-//			Constants.dis_matrix[2][1] = 4;
-//			Constants.dis_matrix[3][1] = 6;
-//			Constants.dis_matrix[4][1] = 3;
-//			Constants.dis_matrix[3][2] = 5;
-//			Constants.dis_matrix[4][2] = 8;
-//			Constants.dis_matrix[4][3] = 6;
 		}
 		
 		/* Printing the matrix of distances */
@@ -139,7 +130,7 @@ public class MainAddAndRemoveEdges {
 		path.convertStringToPath(Constants.candidate_paths);
 		
 		/* Add and Remove Edges Algo */
-		double debut = System.currentTimeMillis();
+		double debut = System.currentTimeMillis();	
 		System.out.println("Applying the \"Add and Remove Edges\" algorithm :");
 		AddAndRemoveEdges c = new AddAndRemoveEdges();
 		c.addAndRemoveEdges();
