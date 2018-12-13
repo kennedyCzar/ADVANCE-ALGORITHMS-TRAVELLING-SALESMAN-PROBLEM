@@ -25,12 +25,11 @@ public class Main {
 			try {
 				File f = new File(Constants.database);
 				sc = new Scanner(f);
-				/* Ignore first line which includes matrix size */
-				number_of_cities = Integer.parseInt(sc.nextLine());
 				
 				while (sc.hasNextLine()) {
 					String line = sc.nextLine();
 					String[] details = line.split("\\s+");
+					number_of_cities = details.length;
 					for(String s: details) {
 						rows.add(Integer.parseInt(s));
 					}
