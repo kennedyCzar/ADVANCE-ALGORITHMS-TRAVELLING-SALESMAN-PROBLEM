@@ -45,7 +45,7 @@ public class BruteForce {
 						path[j] = paths[i][j];
 						//System.out.print(path[j].getName() + " "); increase time complexity
 					}
-					System.out.println();
+//					System.out.println();
 					//System.out.println("Length of path " + index + " : " + pathLength(path)); increase time complexity
 					index++;
 					
@@ -55,7 +55,7 @@ public class BruteForce {
 							final_path[j] = path[j];
 						}
 					}
-					System.out.println();
+//					System.out.println();
 				}
 			}
 			System.out.println("The shortest path that starts from city " + path[0].getName() + " :");

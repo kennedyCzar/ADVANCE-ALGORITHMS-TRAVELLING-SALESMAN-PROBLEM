@@ -10,7 +10,7 @@ public interface Constants {
 	static final int distance_min = 50;
 	static final int distance_max = 500;
 	static final int starting_point = 0;
-	static final int use_database = 1;
+	static final int use_database = 0;
 	
 	/* Database file */
 	public static final String database = "src/database.txt";

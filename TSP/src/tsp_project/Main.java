@@ -146,8 +146,7 @@ public class Main {
 		debut = System.currentTimeMillis();
 		System.out.println("Applying the \"Branch and Bound\" algorithm :");
 		BranchAndBound b = new BranchAndBound();
-		b.initializeNodes();
-		b.branchAndBound();
+		b.branchAndBound(Constants.paths);
 		System.out.println();
 		System.out.println("Execution time : " + (System.currentTimeMillis() - debut) + " ms");
 		System.out.println();

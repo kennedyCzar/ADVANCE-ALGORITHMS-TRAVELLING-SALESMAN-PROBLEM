@@ -3,15 +3,13 @@
  */
 package tsp_project;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author walid
  *
  */
 public class BranchAndBound {
 	public static int reduction_cost;
+	public static int distance_min = Constants.number_of_cities * Constants.distance_max;
 
 	/* This method does the reduction process on the given matrix */
 	public int[][] matrixReduction (int[][] dis_matrix) {
@@ -172,7 +170,7 @@ public class BranchAndBound {
 		int index4 = 1;
 		while (nb1 > 1) {
 			/* Number of nodes depending on the tree level */
-			int index3 = index2 - index4; // nb dial les noeuds 3la hsab niveau fl'arbre
+			int index3 = index2 - index4;
 			/* Value of last number of nodes */
 			index4 = index2;
 			while (index3 > 0) {
@@ -193,164 +191,113 @@ public class BranchAndBound {
 			}
 		}
 	}
-
-	/* This method returns the shortest path given a starting point */
-	public void branchAndBound () {
-		/* We will store the matrices of reduction in an Arraylist of matrices */
-		List<int[][]> matrices = new ArrayList<int[][]>(nodesNumber());
-		/* Operations will be made on this matrix */
-		int[][] m1 = new int[Main.number_of_cities][Main.number_of_cities];
-		/* Table used to store the visited cities that represent the final path */
-		int[] path = new int[nodesNumber()];
-		/* Current parent node */
-		int current_parent_node = 0;
-		/* Used to determine the minimum cost */
-		int min_cost = 999999999;
-		/* Used to keep track of current minimum cost node */
-		int current_min_cost = 0;
-		/* Used to keep track of current node with minimum cost */
-		int current_min_node = 0;
-		/* Used to know if computation is finished or not */
-		int end = 0;
-
-		/* Initializing the list of matrices */
-		for (int i=0; i < Main.number_of_cities; i++) {
-			for (int j=0; j < Main.number_of_cities; j++) {
-				m1[i][j] = 0;
-			}
-		}
-		for (int i=0; i < nodesNumber(); i++) {
-			matrices.add(i, m1);
-		}
-
-		/* Initializing visited array (only first city is visited */
-		visitedInit();
-		
-		/* Initializing cost array */
-		costInit();
-
-		/* Initializing final visited cities table */
-		path[0] = 1;
-		for (int i=1; i < nodesNumber(); i++) {
-			path[i] = 0;
-		}
-
-		/* Computing the first matrix of reduction */
-		matrices.add(0, matrixReduction(Constants.dis_matrix));
-
-		/* Initializing cost array */
-		Constants.node_cost[0] = reduction_cost;
-
-		/* Computing the remaining matrices of reduction */
-		while (end == 0) {
-			/* For all children nodes */
-			for (int i=1; i < nodesNumber(); i++) {
-				if (Constants.origin[i] == current_parent_node) {
-					/* m1 = matrices.get(current_parent_node); */
-					for (int j=0; j < Main.number_of_cities; j++) {
-						for (int k=0; k < Main.number_of_cities; k++) {
-							m1[j][k] = matrices.get(current_parent_node)[j][k];
-						}
-					}
-					int index1 = 0;
-					int index2 = 0;
-					for (int j=0; j < Main.number_of_cities; j++) {
-						for (int k=0; k < Main.number_of_cities; k++) {
-							if (Constants.cities[k].equals(Constants.nodes[current_parent_node])) {
-								index1 = k;
-							}
-							if (Constants.cities[k].equals(Constants.nodes[i])) {
-								index2 = k;
-							}
-						}
-						m1[index1][j] = -1;
-						m1[j][index2] = -1;
-						m1[index2][Constants.starting_point] = -1;
-					}
-
-					/* Computing the cost of node */
-					matrices.add(i, matrixReduction(m1));
-					Constants.node_cost[i] = reduction_cost + matrices.get(current_parent_node)[index1][index2] + Constants.node_cost[current_parent_node];
+	
+	/* This method returns the length of a given path */
+	public int pathLength (City[] path) {
+		int length = 0;
+		int[] tab_of_indexes = new int[path.length];
+		for (int i=0; i < path.length; i++) {
+			for (int j=0; j < Constants.number_of_cities; j++) {
+				if (path[i].equals(Constants.cities[j])) {
+					tab_of_indexes[i] = j;
 				}
-			}
-			/* Updating min_cost when leaf is reached */
-			/* Testing if the index of current node is an index of a leaf node */
-			if (current_parent_node >= nodesNumber() - (Path.numberOfPossiblePaths() / Main.number_of_cities)) {
-				min_cost = Constants.node_cost[current_parent_node];
-			}
-			
-			/* Determine the next parent node */
-			current_min_cost = min_cost;
-			for (int i=1; i < nodesNumber(); i++) {
-				/* The actual node is not a leaf */
-				if (min_cost == 999999999) {
-					/* Unvisited nodes with known costs */
-					if (Constants.visited[i] != 1 && Constants.visited[i] != 2 && Constants.node_cost[i] != -1) {
-						if (Constants.node_cost[i] < current_min_cost) {
-							current_min_cost = Constants.node_cost[i];
-							current_min_node = i;
-						}
-					}
-				}
-				/* We have reached a leaf */
 				else {
-					/* If visited[i]=2 it means that the node i is eliminated */
-					if (Constants.visited[i] != 1 && Constants.visited[i] != 2 && Constants.node_cost[i] != -1) {
-						/* We eliminate nodes with costs higher than min_cost */
-						if (Constants.node_cost[i] > min_cost) {
-							Constants.visited[i] = 2;
-						} 
-						else {
-							/* We take the path with the minimum cost between all paths with cost less than min_cost */
-							if (Constants.node_cost[i] < current_min_cost) {
-								current_min_cost = Constants.node_cost[i];
-								current_min_node = i;
-							}
-						}
+					continue;
+				}
+			}
+		}
+		for (int i=0; i < Constants.number_of_cities; i++) {
+			length += Constants.dis_matrix[tab_of_indexes[i]][tab_of_indexes[i+1]];
+		}
+		return length;
+	}
+	
+	/* This method computes the length of a path in comparison with the length of a given path */
+	public int pathLengthCompare (int distance_min, City[] currentPath) {
+		int length = 0;
+		int[] tab_of_indexes = new int[currentPath.length];
+		for (int i=0; i < currentPath.length; i++) {
+			for (int j=0; j < Constants.number_of_cities; j++) {
+				if (currentPath[i].equals(Constants.cities[j])) {
+					tab_of_indexes[i] = j;
+				}
+				else {
+					continue;
+				}
+			}
+		}
+		for (int i=0; i < Constants.number_of_cities; i++) {
+			length += Constants.dis_matrix[tab_of_indexes[i]][tab_of_indexes[i+1]];
+			if (length >= distance_min ) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/* This method returns the shortest path (Branch And Bound algorithm) */
+	public void branchAndBound (City[][] paths) {
+		if ((Constants.starting_point >= 0) && (Constants.starting_point <= Constants.number_of_cities - 1)) {
+			/* Table to store the shortest path */
+			City[] path = new City[Constants.number_of_cities + 1];
+			/* Matrix to store only the paths starting with the starting point */
+			City[][] cities = new City[Path.numberOfPossiblePaths() / Constants.number_of_cities][Constants.number_of_cities + 1];
+			for (int i=0; i < Path.numberOfPossiblePaths() / Constants.number_of_cities; i++) {
+				/* Test to compute only the paths starting with the city : starting_point (index of city) */
+				if (Constants.cities[Constants.starting_point].equals(paths[i][0])) {
+					for (int j=0; j < Constants.number_of_cities + 1; j++) {
+						cities[i][j] = paths[i][j];
 					}
 				}
 			}
-			/* We have reached a leaf of minimum cost path */
-			if (current_min_cost == Constants.node_cost[current_parent_node] && min_cost != 999999999) {
-				break;
+			/* Initialization of the first path as the optimal one */
+			for (int i=0; i < Constants.number_of_cities + 1; i++) {
+				path[i] = cities[0][i];
 			}
-			
-			min_cost = 999999999;
-			/* Updating visited nodes table */
-			Constants.visited[current_min_node] = 1;
-			path[current_min_node] = 1;
-			
-			/* Updating final path table */
-			/* If the parent of the min cost node sound is not the current parent node */
-			if (Constants.origin[current_min_node] != current_parent_node) {
-				/* We set the table cells to 0 except for the first one which represents the root of tree */
-				for (int j=1; j < nodesNumber(); j++) {
-					path[j] = 0;
+			if (pathLength(path) < distance_min) {
+				distance_min = pathLength(path);
+			}
+			/* Backtracking */
+			City[] path1 = new City[Constants.number_of_cities + 1];
+			for (int i=1; i < Path.numberOfPossiblePaths() / Constants.number_of_cities; i++) {
+				for (int j=0; j < Constants.number_of_cities + 1; j++) {
+					path1[j] = cities[i][j];
 				}
-				path[current_min_node] = 1;
-				
-				/* We mark all the parent of the current min node as visited */
-				int index = Constants.origin[current_min_node];
-				while (index > 0) {
-					path[index] = 1;
-					index = Constants.origin[index];
+				if (pathLengthCompare(distance_min, path1) != -1) {
+					if (pathLengthCompare(distance_min, path1) < Constants.number_of_cities - 2) {
+						int index = 0;
+						for (int k=i+1; k < Path.numberOfPossiblePaths() / Constants.number_of_cities; k++) {
+							City[] path2 = new City[Constants.number_of_cities + 1];
+							for (int j=0; j < Constants.number_of_cities + 1; j++) {
+								path2[j] = cities[k][j];
+							}
+							if (path2[pathLengthCompare(distance_min, path1)].equals(path1[pathLengthCompare(distance_min, path1)])) {
+								index++;
+								continue;
+							}
+							else {
+								break;
+							}
+						}
+						i += index;
+					}
+				}
+				else {
+					for (int j=0; j < Constants.number_of_cities + 1; j++) {
+						path[j] = path1[j];
+					}
+					distance_min = pathLength(path);
 				}
 			}
-			
-			/* Setting next parent node as minimum cost current node */
-			current_parent_node = current_min_node;
-		}
-		
-		/* Printing the shortest path */
-		System.out.println("The shortest path that starts from city " + Constants.nodes[0].getName() + " :");
-		int index_of_leef = 0;
-		for (int i=0; i < nodesNumber(); i++) {
-			if (path[i] == 1) {
-				System.out.print(Constants.nodes[i].getName() + " ");
-				index_of_leef = i;
+			System.out.println("The shortest path that starts from city " + path[0].getName() + " :");
+			for (int i=0; i < Constants.number_of_cities + 1; i++) {
+				System.out.print(path[i].getName() + " ");
 			}
+			System.out.println();
+			System.out.println("The path length is : " + distance_min);
 		}
-		System.out.println(Constants.nodes[0].getName());
-		System.out.println("The path length is : " + Constants.node_cost[index_of_leef]);
+		else {
+			System.out.println("The starting city you gave does not exist");
+		}
 	}
 }
